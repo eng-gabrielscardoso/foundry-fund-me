@@ -3,13 +3,14 @@ pragma solidity ^0.8.18;
 
 import {Test} from "forge-std/Test.sol";
 
+import {FundMeScript} from "../scripts/FundMe.s.sol";
 import {FundMe} from "foundry-fund-me/FundMe.sol";
 
 contract FundMeTest is Test {
     FundMe public fundMe;
 
     function setUp() public {
-        fundMe = new FundMe();
+        fundMe = new FundMeScript().run();
     }
 
     function testMinimumDollarIsFive() public view {
@@ -17,7 +18,7 @@ contract FundMeTest is Test {
     }
 
     function testOwnerIsMsgSender() public view {
-        assertEq(fundMe.i_owner(), address(this));
+        assertEq(fundMe.i_owner(), msg.sender);
     }
 
     /**
