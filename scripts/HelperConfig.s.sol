@@ -24,7 +24,7 @@ contract HelperConfig is Script {
             activeNetworkConfig = getSepoliaEthConfig();
             console.log("Running using Sepolia");
         } else {
-            activeNetworkConfig = getAnvilEthConfig();
+            activeNetworkConfig = getOrCreateAnvilEthConfig();
             console.log("Running using Anvil");
         }
     }
@@ -57,7 +57,7 @@ contract HelperConfig is Script {
         return sepoliaConfig;
     }
 
-    function getAnvilEthConfig() public returns (NetworkConfig memory) {
+    function getOrCreateAnvilEthConfig() public returns (NetworkConfig memory) {
         if (activeNetworkConfig.priceFeed != address(0)) {
             return activeNetworkConfig;
         }
