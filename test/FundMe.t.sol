@@ -9,8 +9,13 @@ import {FundMe} from "foundry-fund-me/FundMe.sol";
 contract FundMeTest is Test {
     FundMe public fundMe;
 
+    uint256 constant SEND_VALUE = 0.1 ether;
+    address USER = makeAddr("Okabe Rintarou");
+    uint256 constant STARTING_BALANCE = 100 ether;
+
     function setUp() public {
         fundMe = new FundMeScript().run();
+        vm.deal(USER, STARTING_BALANCE);
     }
 
     function testMinimumDollarIsFive() public view {
@@ -36,5 +41,20 @@ contract FundMeTest is Test {
     function testPriceFeedVersionIsAccurate() public view {
         uint256 version = fundMe.getVersion();
         assertEq(version, 4);
+    }
+
+    function testFundFailsWithoutEnoughEth() public {
+        vm.expectRevert();
+        fundMe.fund();
+    }
+
+    function testFundUpdatesFundedDataStructure() public {
+        vm.prank(USER);
+
+        fundMe.fund{value: SEND_VALUE}();
+
+        uint256 amountFunded = fundMe.getAddressToAmountFunded(USER);
+
+        assertEq(amountFunded, SEND_VALUE);
     }
 }
