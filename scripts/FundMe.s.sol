@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.19;
 
-import {Script} from 'forge-std/Script.sol';
+import {Script} from "forge-std/Script.sol";
 import {FundMe} from "foundry-fund-me/FundMe.sol";
-import {HelperConfig} from './HelperConfig.s.sol';
+import {HelperConfig} from "./HelperConfig.s.sol";
 
 contract FundMeScript is Script {
     FundMe public fundMe;
@@ -12,7 +12,7 @@ contract FundMeScript is Script {
     function setUp() public {}
 
     function run() external returns (FundMe) {
-        (address ethUsdPriceFeed) = helperConfig.activeNetworkConfig();
+        address ethUsdPriceFeed = helperConfig.activeNetworkConfig();
 
         vm.startBroadcast();
 
