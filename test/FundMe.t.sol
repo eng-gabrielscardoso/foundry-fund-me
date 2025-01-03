@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.18;
 
-import {Test, console} from "forge-std/Test.sol";
+import {Test} from "forge-std/Test.sol";
 
 import {FundMeScript} from "../scripts/FundMe.s.sol";
 import {FundMe} from "foundry-fund-me/FundMe.sol";
@@ -107,11 +107,6 @@ contract FundMeTest is Test {
         vm.startPrank(fundMe.getOwner());
         fundMe.withdraw();
         vm.stopPrank();
-
-        console.log("Owner Balance: ", fundMe.getOwner().balance);
-        console.log("FundMe Balance: ", address(fundMe).balance);
-        console.log("Starting Owner Balance: ", startingOwnerBalance);
-        console.log("Starting FundMe Balance: ", startingFundMeBalance);
 
         assert(address(fundMe).balance == 0);
         assert(startingFundMeBalance + startingOwnerBalance == fundMe.getOwner().balance);
