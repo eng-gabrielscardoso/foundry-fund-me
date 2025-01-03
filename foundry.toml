@@ -4,6 +4,7 @@ out = "out"
 libs = ["lib"]
 remappings = [
     "chainlink-brownie-contracts/=lib/chainlink-brownie-contracts/contracts/src/v0.8",
+    "foundry-devops/=lib/foundry-devops/src",
     "foundry-fund-me/=src",
 ]
 
