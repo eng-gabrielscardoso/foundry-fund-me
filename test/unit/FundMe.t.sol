@@ -3,10 +3,10 @@ pragma solidity ^0.8.18;
 
 import {Test} from "forge-std/Test.sol";
 
-import {FundMeScript} from "../scripts/FundMe.s.sol";
+import {FundMeScript} from "../../scripts/FundMe.s.sol";
 import {FundMe} from "foundry-fund-me/FundMe.sol";
 
-contract FundMeTest is Test {
+contract FundMeUnitTest is Test {
     FundMe public fundMe;
 
     uint256 constant GAS_PRICE = 1;
