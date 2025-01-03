@@ -9,6 +9,7 @@ import {FundMe} from "foundry-fund-me/FundMe.sol";
 contract FundMeTest is Test {
     FundMe public fundMe;
 
+    uint256 constant GAS_PRICE = 1;
     uint256 constant SEND_VALUE = 0.1 ether;
     address USER = makeAddr("Okabe Rintarou");
     uint256 constant STARTING_BALANCE = 100 ether;
@@ -81,8 +82,12 @@ contract FundMeTest is Test {
         uint256 startingFundMeBalance = address(fundMe).balance;
 
         // Act
+        // uint256 gasStart = gasleft();
+        vm.txGasPrice(GAS_PRICE);
         vm.prank(fundMe.getOwner());
         fundMe.withdraw();
+        // uint256 gasEnd = gasleft();
+        // uint256 gasUsed = (gasStart - gasEnd) * tx.gasprice;
 
         // Assert
         uint256 endingOwnerBalance = fundMe.getOwner().balance;
